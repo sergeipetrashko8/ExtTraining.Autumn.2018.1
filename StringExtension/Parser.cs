@@ -30,7 +30,7 @@ namespace StringExtension
             return resultNumber;
         }
 
-        private static string Numbers = "0123456789ABCDEF";
+        private const string Numbers = "0123456789ABCDEF";
 
         private static int IntPow(int number, int power)
         {

@@ -116,7 +116,6 @@ namespace BookLibrary
             }
 
             throw new FormatException($"There aren't \"{format}\" format string for this class!");
-
         }
 
         /// <summary>
@@ -132,7 +131,7 @@ namespace BookLibrary
         {
             if (number <= 0)
             {
-                throw new ArgumentException("Number characteristics of Book must be positive!");
+                throw new ArgumentException("Numeric characteristics of Book must be positive!");
             }
         }
     }
