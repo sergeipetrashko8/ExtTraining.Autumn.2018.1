@@ -11,7 +11,7 @@ namespace BookLibrary
         private int _year;
         private int _edition;
         private int _pages;
-        private double _price;
+        private decimal _price;
 
         /// <summary>
         /// Property Title of Book
@@ -70,7 +70,7 @@ namespace BookLibrary
         /// <summary>
         /// Property Price of book
         /// </summary>
-        public double Price
+        public decimal Price
         {
             get => _price;
             set
@@ -90,30 +90,30 @@ namespace BookLibrary
         {
             if (formatProvider == null)
             {
-                formatProvider = CultureInfo.InvariantCulture;
+                formatProvider = CultureInfo.CurrentCulture;
             }
 
             switch (format)
             {
                 case "ATYP":
-                    return $"Book Record: {Author}, {Title}, {Year.ToString(formatProvider)}, {PublishingHours}";
+                    return $"Book Record: {Author}, {Title}, {Year}, {PublishingHours}";
 
                 case "ATY":
-                    return $"Book Record: {Author}, {Title}, {Year.ToString(formatProvider)}";
+                    return $"Book Record: {Author}, {Title}, {Year}";
 
                 case "AT":
                     return $"Book Record: {Author}, {Title}";
 
                 case "TYP":
-                    return $"Book Record: {Title}, {Year.ToString(formatProvider)}, {PublishingHours}";
+                    return $"Book Record: {Title}, {Year}, {PublishingHours}";
 
                 case "T":
                     return $"Book Record: {Title}";
 
                 case "G":
                     return
-                        $"Book Record: {Author}, {Title}, {Year.ToString(formatProvider)}, {PublishingHours}, {Edition.ToString(formatProvider)}, " +
-                        $"{Pages.ToString(formatProvider)}, {string.Format(formatProvider, "{0:C}", Price)}";
+                        $"Book Record: {Author}, {Title}, {Year}, {PublishingHours}, {Edition}, " +
+                        $"{Pages}, {string.Format(formatProvider, "{0:C}", Price)}";
             }
 
             throw new FormatException($"There aren't \"{format}\" format string for this class!");
@@ -128,7 +128,15 @@ namespace BookLibrary
             return ToString("G", null);
         }
 
-        private static void CheckPositiveNumber(double number)
+        private static void CheckPositiveNumber(decimal number)
+        {
+            if (number <= 0)
+            {
+                throw new ArgumentException("Numeric characteristics of Book must be positive!");
+            }
+        }
+
+        private static void CheckPositiveNumber(int number)
         {
             if (number <= 0)
             {

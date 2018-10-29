@@ -7,19 +7,13 @@ namespace BookLibrary.Tests
     [TestFixture]
     public class BookTests
     {
-        private CultureInfo _ci;
-
         private Book _book;
         
         [OneTimeSetUp]
         public void SetUp()
         {
-            CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en-GB");
-
-            _ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
-            _ci.NumberFormat.CurrencyDecimalSeparator = ".";
-            _ci.NumberFormat.CurrencySymbol = "$";
-
+            CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("tr-TR");
+                
             _book  = new Book
             {
                 Author = "Jon Skeet",
@@ -38,9 +32,17 @@ namespace BookLibrary.Tests
         [TestCase("TYP", ExpectedResult = "Book Record: C# in Depth, 2019, Manning")]
         [TestCase("T", ExpectedResult = "Book Record: C# in Depth")]
         [TestCase("G", ExpectedResult = "Book Record: Jon Skeet, C# in Depth, 2019, Manning, 4, 900, ¤40.00")]
-        public string ToString_FormatString_FormatedStringExpected(string format)
+        public string ToString_FormatStringInvariantCulture_FormatedStringExpected(string format)
         {
-            return _book.ToString(format, null);
+            return _book.ToString(format, CultureInfo.InvariantCulture);
+        }
+
+        [Test]
+        public void ToString_FormatStringGCurrentCulture_FormatedStringExpected()
+        {
+            string expected = string.Format(CultureInfo.CurrentCulture, "Book Record: Jon Skeet, C# in Depth, 2019, Manning, 4, 900, {0:C}", _book.Price);
+            string actual = _book.ToString("G", CultureInfo.CurrentCulture);
+            Assert.AreEqual(expected, actual);
         }
 
         [Test]
