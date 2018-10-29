@@ -12,7 +12,7 @@ namespace BookLibrary.Tests
         [OneTimeSetUp]
         public void SetUp()
         {
-            CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("tr-TR");
+            CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("cn-CN");
                 
             _book  = new Book
             {
@@ -38,10 +38,10 @@ namespace BookLibrary.Tests
         }
 
         [Test]
-        public void ToString_FormatStringGCurrentCulture_FormatedStringExpected()
+        public void ToString_FormatStringGTurkeyCulture_FormatedStringExpected()
         {
-            string expected = string.Format(CultureInfo.CurrentCulture, "Book Record: Jon Skeet, C# in Depth, 2019, Manning, 4, 900, {0:C}", _book.Price);
-            string actual = _book.ToString("G", CultureInfo.CurrentCulture);
+            string expected = string.Format(CultureInfo.GetCultureInfo("tr-TR"), "Book Record: Jon Skeet, C# in Depth, 2019, Manning, 4, 900, {0:C}", _book.Price);
+            string actual = _book.ToString("G", CultureInfo.GetCultureInfo("tr-TR"));
             Assert.AreEqual(expected, actual);
         }
 

@@ -39,8 +39,8 @@ namespace BookExtension
         }
 
         public string Format(string format, object arg, IFormatProvider formatProvider)
-        {
-            if (arg == null || arg.GetType() != typeof(Book) || format != "A" && format != "a")
+        {       
+            if (arg.GetType() != typeof(Book) || format != "A" && format != "a")
             {
                 return string.Format(_parent, "{0:" + format + "}", arg);
             }

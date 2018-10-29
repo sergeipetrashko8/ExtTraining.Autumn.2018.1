@@ -7,6 +7,8 @@ namespace StringExtension
     /// </summary>
     public static class Parser
     {
+        private const string Numbers = "0123456789ABCDEF";
+        
         /// <summary>
         /// The method parse string to int number of some base
         /// </summary>
@@ -21,41 +23,26 @@ namespace StringExtension
             source = source.ToUpperInvariant();
 
             int resultNumber = 0;
+            int powOfInt = 1;
 
             try
             {
                 for (int i = source.Length - 1, j = 0; i >= 0; i--, j++)
                 {
-                    resultNumber = checked(resultNumber + Numbers.IndexOf(source[i]) * IntPow(@base, j));
+                    checked
+                    {
+                        resultNumber = resultNumber + Numbers.IndexOf(source[i]) * powOfInt;
+                        if (i > 0) powOfInt *= @base;
+                    }
                 }
+
+                return resultNumber;
             }
 
-            catch (OverflowException)
+            catch (OverflowException ex)
             {
-                throw new ArgumentException($"{nameof(source)} string has too big value!");
+                throw new ArgumentException($"{nameof(source)} string has too big value!", ex);
             }
-
-
-        return resultNumber;
-        }
-
-        private const string Numbers = "0123456789ABCDEF";
-
-        private static int IntPow(int number, int power)
-        {
-            int result = 1;
-
-            int i = 0;
-
-            while (i++ < power)
-            {
-                checked
-                {
-                    result *= number;
-                }
-            }
-
-            return result;
         }
 
         #region Checkers
