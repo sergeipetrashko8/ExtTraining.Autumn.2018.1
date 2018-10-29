@@ -14,6 +14,8 @@ namespace BookLibrary.Tests
         [OneTimeSetUp]
         public void SetUp()
         {
+            CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en-GB");
+
             _ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
             _ci.NumberFormat.CurrencyDecimalSeparator = ".";
             _ci.NumberFormat.CurrencySymbol = "$";
@@ -33,13 +35,12 @@ namespace BookLibrary.Tests
         [TestCase("ATYP", ExpectedResult = "Book Record: Jon Skeet, C# in Depth, 2019, Manning")]
         [TestCase("ATY", ExpectedResult = "Book Record: Jon Skeet, C# in Depth, 2019")]
         [TestCase("AT", ExpectedResult = "Book Record: Jon Skeet, C# in Depth")]
-        [TestCase("G", ExpectedResult = "Book Record: Jon Skeet, C# in Depth, 2019, Manning, 4, 900, 40.00 $")]
         [TestCase("TYP", ExpectedResult = "Book Record: C# in Depth, 2019, Manning")]
         [TestCase("T", ExpectedResult = "Book Record: C# in Depth")]
-        [TestCase("G", ExpectedResult = "Book Record: Jon Skeet, C# in Depth, 2019, Manning, 4, 900, 40.00 $")]
+        [TestCase("G", ExpectedResult = "Book Record: Jon Skeet, C# in Depth, 2019, Manning, 4, 900, ¤40.00")]
         public string ToString_FormatString_FormatedStringExpected(string format)
         {
-            return _book.ToString(format, _ci);
+            return _book.ToString(format, null);
         }
 
         [Test]

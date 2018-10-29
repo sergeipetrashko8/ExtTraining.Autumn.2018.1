@@ -90,29 +90,30 @@ namespace BookLibrary
         {
             if (formatProvider == null)
             {
-                formatProvider = CultureInfo.CurrentCulture;
+                formatProvider = CultureInfo.InvariantCulture;
             }
 
             switch (format)
             {
                 case "ATYP":
-                    return "Book Record: " + Author + ", " + Title + ", " + Year.ToString(formatProvider) + ", " + PublishingHours;
+                    return $"Book Record: {Author}, {Title}, {Year.ToString(formatProvider)}, {PublishingHours}";
 
                 case "ATY":
-                    return "Book Record: " + Author + ", " + Title + ", " + Year.ToString(formatProvider);
+                    return $"Book Record: {Author}, {Title}, {Year.ToString(formatProvider)}";
 
                 case "AT":
-                    return "Book Record: " + Author + ", " + Title;
+                    return $"Book Record: {Author}, {Title}";
 
                 case "TYP":
-                    return "Book Record: " + Title + ", " + Year.ToString(formatProvider) + ", " + PublishingHours;
+                    return $"Book Record: {Title}, {Year.ToString(formatProvider)}, {PublishingHours}";
 
                 case "T":
-                    return "Book Record: " + Title;
+                    return $"Book Record: {Title}";
 
                 case "G":
-                    return "Book Record: " + Author + ", " + Title + ", " + Year.ToString(formatProvider) + ", " + PublishingHours + ", " + Edition.ToString(formatProvider)
-                           + ", " + Pages.ToString(formatProvider) + ", " + string.Format(formatProvider, "{0:C}", Price);
+                    return
+                        $"Book Record: {Author}, {Title}, {Year.ToString(formatProvider)}, {PublishingHours}, {Edition.ToString(formatProvider)}, " +
+                        $"{Pages.ToString(formatProvider)}, {string.Format(formatProvider, "{0:C}", Price)}";
             }
 
             throw new FormatException($"There aren't \"{format}\" format string for this class!");

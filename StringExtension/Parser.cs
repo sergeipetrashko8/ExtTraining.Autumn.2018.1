@@ -22,12 +22,21 @@ namespace StringExtension
 
             int resultNumber = 0;
 
-            for (int i = source.Length - 1, j = 0; i >= 0; i--, j++)
+            try
             {
-                resultNumber = checked (resultNumber + Numbers.IndexOf(source[i]) * IntPow(@base, j));
+                for (int i = source.Length - 1, j = 0; i >= 0; i--, j++)
+                {
+                    resultNumber = checked(resultNumber + Numbers.IndexOf(source[i]) * IntPow(@base, j));
+                }
             }
-            
-            return resultNumber;
+
+            catch (OverflowException)
+            {
+                throw new ArgumentException($"{nameof(source)} string has too big value!");
+            }
+
+
+        return resultNumber;
         }
 
         private const string Numbers = "0123456789ABCDEF";
