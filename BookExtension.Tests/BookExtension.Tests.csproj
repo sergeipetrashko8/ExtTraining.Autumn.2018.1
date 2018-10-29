@@ -51,13 +51,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\BookExtension\BookExtension.csproj">
       <Project>{a83aba30-cc08-4bbb-876b-50f8217e08b8}</Project>
       <Name>BookExtension</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BookLibrary\BookLibrary.csproj">
+      <Project>{2a12c994-924f-43de-a680-973ffeb02062}</Project>
+      <Name>BookLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

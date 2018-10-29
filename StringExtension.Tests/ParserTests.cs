@@ -28,7 +28,7 @@ namespace StringExtension.Tests
         [TestCase("111111111111111111111111111111111", 2)]
         [TestCase("535A79889", 13)]
         [TestCase("1550104015504", 6)]
-        public void StringToDecimal_TooBigValue_ThrowsArgumentException(string source, int @base) =>
+        public void StringToDecimal_TooBigValue_ThrowsOverflowException(string source, int @base) =>
             Assert.Throws<OverflowException>(() => source.ToDecimal(@base));
 
         [TestCase("0110111101100001100001010111111", 2, ExpectedResult = 934331071)]
