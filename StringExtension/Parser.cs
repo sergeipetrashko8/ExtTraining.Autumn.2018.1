@@ -3,14 +3,14 @@
 namespace StringExtension
 {
     /// <summary>
-    /// The class implements parsing string to int number of some base
+    ///     The class implements parsing string to int number of some base
     /// </summary>
     public static class Parser
     {
         private const string Numbers = "0123456789ABCDEF";
-        
+
         /// <summary>
-        /// The method parse string to int number of some base
+        ///     The method parse string to int number of some base
         /// </summary>
         /// <param name="source">Source string</param>
         /// <param name="base">Base of number</param>
@@ -22,12 +22,12 @@ namespace StringExtension
 
             source = source.ToUpperInvariant();
 
-            int resultNumber = 0;
-            int powOfInt = 1;
+            var resultNumber = 0;
+            var powOfInt = 1;
 
             try
             {
-                for (int i = source.Length - 1, j = 0; i >= 0; i--, j++)
+                for (var i = source.Length - 1; i >= 0; i--)
                 {
                     checked
                     {
@@ -46,36 +46,26 @@ namespace StringExtension
         }
 
         #region Checkers
-        
+
         private static void CheckBase(int @base)
         {
-            if (!(@base >= 2 && @base <= 16))
-            {
-                throw new ArgumentOutOfRangeException(nameof(@base));
-            }
+            if (!(@base >= 2 && @base <= 16)) throw new ArgumentOutOfRangeException(nameof(@base));
         }
 
         private static void CheckSourceString(string source, int @base)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException($"Source string has null reference!");
-            }
+            if (source == null) throw new ArgumentNullException("Source string has null reference!");
 
-            if (source.Length == 0)
-            {
-                throw new ArgumentException($"Source string has zero length!");
-            }
+            if (string.IsNullOrWhiteSpace(source))
+                throw new ArgumentException("Source string has zero length or white space!");
 
             source = source.ToUpperInvariant();
-            string numbers = Numbers.Substring(0, @base);
+            var numbers = Numbers.Substring(0, @base);
 
             foreach (var element in source)
             {
                 if (!numbers.Contains(element.ToString()))
-                {
-                    throw new ArgumentException($"Source string contains invalid symbols for this base!");
-                }
+                    throw new ArgumentException("Source string contains invalid symbols for this base!");
             }
         }
 
